@@ -18,18 +18,19 @@ struct ContentView: View {
         VStack {
         shape()
             .foregroundColor(Color.blue)
-            .tapAction { withAnimation { self.isOn.toggle() } }
+            .onTapGesture { withAnimation { self.isOn.toggle() } }
             .aspectRatio(1, contentMode: .fit)
-            .gesture(DragGesture()
-                .onChanged { result in
-                    self.draggingPoint = result.location
-                    self.isDragging = true
-            }
-            .onEnded { result in
-                withAnimation(.spring()) {
-                    self.isDragging = false
-                }
-            })
+            .gesture(
+                DragGesture()
+                    .onChanged { result in
+                            self.draggingPoint = result.location
+                            self.isDragging = true
+                    }
+                    .onEnded { result in
+                        withAnimation(.interpolatingSpring(stiffness: 200, damping: 10)) {
+                            self.isDragging = false
+                        }
+                    })
             Text(shouldShowCircle ? "Drag the edge of the circle" : "Tap the shape to morph into a different one")
             Spacer()
             Toggle("Show morphing circle", isOn: $shouldShowCircle)

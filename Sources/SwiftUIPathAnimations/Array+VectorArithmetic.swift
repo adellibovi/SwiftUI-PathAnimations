@@ -76,8 +76,6 @@ extension Path {
                 self.addCurve(to: point, control1: control1, control2: control2)
             case .closeSubpath:
                 self.closeSubpath()
-            @unknown default:
-                fatalError("Unsupported Path.Element: \(element)")
             }
         }
     }

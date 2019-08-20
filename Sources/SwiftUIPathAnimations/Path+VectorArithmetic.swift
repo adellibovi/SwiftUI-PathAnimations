@@ -58,8 +58,6 @@ extension Path.Element: VectorArithmetic {
             self = .curve(to: lhsPoint.scaled(by: rhs), control1: lhsControl1.scaled(by: rhs), control2: lhsControl2.scaled(by: rhs))
         case .closeSubpath:
             self = .closeSubpath
-        default:
-            fatalError("VectorAirthmetic is not support for path having different types of elements.")
         }
     }
 
@@ -75,8 +73,6 @@ extension Path.Element: VectorArithmetic {
             return [lhsPoint.animatableData, lhsControl1.animatableData, lhsControl2.animatableData].magnitudeSquared
         case .closeSubpath:
             return 0
-        default:
-            fatalError("VectorAirthmetic is not support for path having different types of elements.")
         }
     }
 

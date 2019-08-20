@@ -11,11 +11,11 @@ import SwiftUI
 
 struct MorphCircle: Shape {
     let circlePoints: [CGPoint]
-    let angleIntervals: [Length]
-    var draggingPoint: CGPoint, isDragging: Bool, animatableData: Length
+    let angleIntervals: [CGFloat]
+    var draggingPoint: CGPoint, isDragging: Bool, animatableData: CGFloat
 
     init(draggingPoint: CGPoint, isDragging: Bool) {
-        self.angleIntervals = Array(stride(from: Length(0.0), to: 360.0, by: 36.0))
+        self.angleIntervals = Array(stride(from: CGFloat(0.0), to: 360.0, by: 36.0))
         self.circlePoints = angleIntervals
             .map { $0.degreesToRadians }
             .map { (cos($0), sin($0)) }

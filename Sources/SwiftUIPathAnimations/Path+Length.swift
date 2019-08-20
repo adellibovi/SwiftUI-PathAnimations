@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 class PathPointCalculator {
-    let elements: [Path.Element], length: Length, numberOfPoints: Int
+    let elements: [Path.Element], length: CGFloat, numberOfPoints: Int
     init(path: Path, numberOfPoints: Int) {
         self.elements = path.elements
         self.length = path.length
@@ -16,11 +16,11 @@ class PathPointCalculator {
 
     func makePoints() -> [CGPoint] {
         (0..<numberOfPoints)
-            .map { Length($0)/Length(numberOfPoints) }
+            .map { CGFloat($0)/CGFloat(numberOfPoints) }
             .map(makePoint)
     }
 
-    private func makePoint(atPercent percent: Length) -> CGPoint {
+    private func makePoint(atPercent percent: CGFloat) -> CGPoint {
         let percentLength = length * percent
 
         for (index, element) in elements.enumerated().dropFirst(currentIndex) {
@@ -84,8 +84,6 @@ class PathPointCalculator {
                     currentPoint = point1
                 }
                 firstPointInSubpath = nil
-            @unknown default:
-                fatalError()
             }
 
         }
@@ -128,8 +126,6 @@ fileprivate extension Path.Element {
             return point
         case .closeSubpath:
             return .zero
-        @unknown default:
-            fatalError()
         }
     }
 
@@ -145,8 +141,6 @@ fileprivate extension Path.Element {
             return cubicCurveLength(point0: origin, control1: control1, control2: control2, point1: point)
         case .closeSubpath:
             return linearLength(point0: origin, point1: startPoint)
-        @unknown default:
-            fatalError()
         }
     }
 }
